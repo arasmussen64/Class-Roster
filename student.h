@@ -1,53 +1,48 @@
-#pragma once
-#include<iostream>;
-#include<string>;
-using namespace std;
+#ifndef STUDENT_H
+#define STUDENT_H
 
+#include <string>
+#include "degree.h" // Ensure this includes the DegreeProgram enum
 
 class Student {
-    private:
-        int studentID;
-        string firstName;
-        string lastName;
-        string email;
-        int age;
-        int daysToCompleteCourse;
-        string degreeProgram;
+private:
+    std::string studentID;
+    std::string firstName;
+    std::string lastName;
+    std::string emailAddress;
+    int age;
+    int daysToCompleteCourses[3]; // Array to store the number of days to complete each of the 3 courses
+    DegreeProgram degreeProgram;
 
-    public:
+public:
+    // Constructor
+    Student(std::string studentID, std::string firstName, std::string lastName,
+            std::string emailAddress, int age, int daysInCourse1,
+            int daysInCourse2, int daysInCourse3, DegreeProgram degreeProgram);
 
-    //Constructor
-       Student(int studentID, string firstName, string lastName, string email, int age, int daysToCompleteCourse, string degreeProgram) 
-        : studentID(studentID), firstName(firstName), lastName(lastName), email(email), age(age), daysToCompleteCourse(daysToCompleteCourse), degreeProgram(degreeProgram) {}
-    
-    //Getters
-        int getStudentID() const { return studentID; }
-        string getFirstName() const { return firstName; }
-        string getLastName() const { return lastName; }
-        string getEmail() const { return email; }
-        int getAge() const { return age; }
-        int getDaysToCompleteCourse() const { return daysToCompleteCourse; }
-        string getDegreeProgram() const { return degreeProgram; }
+    // Destructor
+    ~Student();
 
-    // Setters
-        void setStudentID(int value) { studentID = value; }
-        void setFirstName(string value) { firstName = value; }
-        void setLastName(string value) { lastName = value; }
-        void setEmail(string value) { email = value; }
-        void setAge(int value) { age = value; }
-        void setDaysToCompleteCourse(int value) { daysToCompleteCourse = value; }
-        void setDegreeProgram(string value) { degreeProgram = value; }
+    // Accessors (getters)
+    std::string getStudentID() const;
+    std::string getFirstName() const;
+    std::string getLastName() const;
+    std::string getEmailAddress() const;
+    int getAge() const;
+    const int* getDaysToCompleteCourses() const;
+    DegreeProgram getDegreeProgram() const;
 
-     // Print function
-        void print() const {
-            cout << "Student ID: " << studentID << "\n"
-                << "First Name: " << firstName << "\n"
-                << "Last Name: " << lastName << "\n"
-                << "Email: " << email << "\n"
-                << "Age: " << age << "\n"
-                << "Days to Complete Course: " << daysToCompleteCourse << "\n"
-                << "Degree Program: " << degreeProgram << endl;
-    }
+    // Mutators (setters)
+    void setStudentID(std::string studentID);
+    void setFirstName(std::string firstName);
+    void setLastName(std::string lastName);
+    void setEmailAddress(std::string emailAddress);
+    void setAge(int age);
+    void setDaysToCompleteCourses(int daysInCourse1, int daysInCourse2, int daysInCourse3);
+    void setDegreeProgram(DegreeProgram degreeProgram);
 
-
+    // print() to print specific student data
+    void print() const;
 };
+
+#endif // STUDENT_H

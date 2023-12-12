@@ -1,66 +1,122 @@
-#include <iostream>
 #include "student.h"
-using namespace std;
+#include <iostream>
+#include <cassert>
 
-// Constructor
-Student::Student(string id, string fName, string lName, string email, int a, 
-                 int daysInCourse1, int daysInCourse2, int daysInCourse3, 
-                 DegreeProgram degProgram) {
-    this->studentID = id;
-    this->firstName = fName;
-    this->lastName = lName;
-    this->emailAddress = email;
-    this->age = a;
-    this->daysToCompleteCourses[0] = daysInCourse1;
-    this->daysToCompleteCourses[1] = daysInCourse2;
-    this->daysToCompleteCourses[2] = daysInCourse3;
-    this->degreeProgram = degProgram;
+// Default Constructor
+Student::Student() {
+    // Initialize with default values
+    this->studentID = ""; // An empty string for studentID
+    this->firstName = ""; // An empty string for firstName
+    this->lastName = ""; // An empty string for lastName
+    this->emailAddress = ""; // An empty string for emailAddress
+    this->age = 0; // A default age, e.g., 0
+    for (int i = 0; i < 3; ++i) {
+        this->daysToComplete[i] = 0; // Initialize all elements to 0
+    }
+    this->degreeProgram = SOFTWARE; // Default to one of the DegreeProgram enums, e.g., SOFTWARE
 }
 
-// Accessor implementations
-string Student::getStudentID() const { return studentID; }
-string Student::getFirstName() const { return firstName; }
-string Student::getLastName() const { return lastName; }
-string Student::getEmailAddress() const { return emailAddress; }
-int Student::getAge() const { return age; }
-const int* Student::getDaysToCompleteCourses() const { return daysToCompleteCourses; }
-DegreeProgram Student::getDegreeProgram() const { return degreeProgram; }
 
-// Mutator implementations
-void Student::setStudentID(string id) { studentID = id; }
-void Student::setFirstName(string fName) { firstName = fName; }
-void Student::setLastName(string lName) { lastName = lName; }
-void Student::setEmailAddress(string email) { emailAddress = email; }
-void Student::setAge(int a) { age = a; }
-void Student::setDaysToCompleteCourses(int days1, int days2, int days3) {
-    daysToCompleteCourses[0] = days1;
-    daysToCompleteCourses[1] = days2;
-    daysToCompleteCourses[2] = days3;
-}
-void Student::setDegreeProgram(DegreeProgram degProgram) { degreeProgram = degProgram; }
-
-// print() to print specific student data
-void Student::print() const {
-    cout << "Student ID: " << studentID << "\t";
-    cout << "First Name: " << firstName << "\t";
-    cout << "Last Name: " << lastName << "\t";
-    cout << "Email Address: " << emailAddress << "\t";
-    cout << "Age: " << age << "\t";
-    cout << "daysInCourse: {" << daysToCompleteCourses[0] << ", " 
-         << daysToCompleteCourses[1] << ", " << daysToCompleteCourses[2] << "} \t";
-    cout << "Degree Program: " << degreeProgramToString(degreeProgram) << endl;
-}
-
-// Helper function to convert DegreeProgram enum to string
-string Student::degreeProgramToString(DegreeProgram dp) const {
-    switch (dp) {
-        case SECURITY:
-            return "SECURITY";
-        case NETWORK:
-            return "NETWORK";
-        case SOFTWARE:
-            return "SOFTWARE";
-        default:
-            return "UNKNOWN";
+// Parameterized Constructor using Member Initializer List
+Student::Student(std::string studentID, std::string firstName, std::string lastName,
+    std::string emailAddress, int age, int daysToComplete[],
+    DegreeProgram degreeProgram)
+    : studentID(studentID), firstName(firstName), lastName(lastName),
+    emailAddress(emailAddress), age(age), degreeProgram(degreeProgram) {
+    for (int i = 0; i < 3; i++) {
+        this->daysToComplete[i] = daysToComplete[i];
     }
 }
+
+// Destructor
+Student::~Student() {
+    // Implement as needed
+}
+
+// Accessors (Getters)
+std::string Student::getStudentID() const {
+    return studentID;
+}
+
+std::string Student::getFirstName() const {
+    return firstName;
+}
+
+std::string Student::getLastName() const {
+    return lastName;
+}
+
+std::string Student::getEmailAddress() const {
+    return emailAddress;
+}
+
+int Student::getAge() const {
+    return age;
+}
+
+// Returns a pointer to the array of days to complete each course
+const int* Student::getDaysToComplete() const {
+    return daysToComplete;
+}
+
+DegreeProgram Student::getDegreeProgram() const {
+    return degreeProgram;
+}
+
+// Mutators (Setters)
+
+void Student::setStudentID(const std::string& studentID) {
+    this->studentID = studentID;
+}
+
+void Student::setFirstName(const std::string& firstName) {
+    this->firstName = firstName;
+}
+
+void Student::setLastName(const std::string& lastName) {
+    this->lastName = lastName;
+}
+
+void Student::setEmailAddress(const std::string& emailAddress) {
+    this->emailAddress = emailAddress;
+}
+
+void Student::setAge(int age) {
+    this->age = age;
+}
+
+void Student::setDaysToComplete(const int daysToComplete[])
+{
+}
+
+
+void Student::setDegreeProgram(DegreeProgram degreeProgram) {
+    this->degreeProgram = degreeProgram;
+}
+
+std::string Student::degreeProgramToString(DegreeProgram degreeProgram) const {
+    switch (degreeProgram) {
+    case SECURITY:
+        return "SECURITY";
+    case NETWORK:
+        return "NETWORK";
+    case SOFTWARE:
+        return "SOFTWARE";
+    default:
+        return "UNKNOWN";
+    }
+}
+
+// Revised Print Function
+void Student::print() const {
+    std::cout << "Student ID: " << studentID << "\t"
+        << "First Name: " << firstName << "\t"
+        << "Last Name: " << lastName << "\t"
+        << "Email Address: " << emailAddress << "\t"
+        << "Age: " << age << "\t"
+        << "Days in Course: {" << daysToComplete[0] << ", "
+        << daysToComplete[1] << ", " << daysToComplete[2] << "} \t"
+        << "Degree Program: " << degreeProgramToString(degreeProgram) << std::endl;
+}
+
+

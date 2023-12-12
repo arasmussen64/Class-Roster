@@ -1,14 +1,12 @@
 #pragma once
+#ifndef DEGREE_H
+#define DEGREE_H
 
-#ifndef Degree_H
-#define Degree_H
-
-
+// Enumerated data type for degree programs
 enum DegreeProgram {
-	SECURITY,
-	NETWORK,
-	SOFTWARE
+    SECURITY,
+    NETWORK,
+    SOFTWARE
 };
-
 
 #endif
